@@ -1,13 +1,11 @@
 ## Migration Challenges 
 
 ### 1. getInitialProps for Legacy Data Fetching
-### 1. getInitialProps for Legacy Data Fetching
 **Current Implementation:** Uses getInitialProps in pages or _app.js for data fetching on both server and client.
 **Next.js 15 Implementation:** Use getServerSideProps, getStaticProps, or React Server Components (RSC) for data fetching.
 **Docs:** [getInitialProps](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-initial-props) | [getServerSideProps](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-server-side-props) | [getStaticProps](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props) | [React Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components)
 **Improvement:** [filled out post migration]
 
-### 2. Custom _document.js and Enhanced _app.js
 ### 2. Custom _document.js and Enhanced _app.js
 **Current Implementation:** _document.js for custom HTML structure; _app.js for global styles and logic.
 **Next.js 15 Implementation:** Use app directory layouts, template.js, and new global style conventions.
@@ -15,13 +13,11 @@
 **Improvement:** [filled out post migration]
 
 ### 3. Dynamic Import with SSR Off
-### 3. Dynamic Import with SSR Off
 **Current Implementation:** Uses dynamic(() => import('...'), { ssr: false }) for client-only components.
 **Next.js 15 Implementation:** Use "use client" directive for Client Components; dynamic import for code splitting only.
 **Docs:** [Dynamic Imports](https://nextjs.org/docs/pages/building-your-application/configuring/dynamic-import) | [Client Components](https://nextjs.org/docs/app/building-your-application/rendering/client-components)
 **Improvement:** [filled out post migration]
 
-### 4. Legacy next/image Usage
 ### 4. Legacy next/image Usage
 **Current Implementation:** Uses old next/image with manual config.
 **Next.js 15 Implementation:** Use new Image component with improved defaults and config.
@@ -29,13 +25,11 @@
 **Improvement:** [filled out post migration]
 
 ### 5. Custom Express Server
-### 5. Custom Express Server
 **Current Implementation:** Uses custom Express server for routing/middleware.
 **Next.js 15 Implementation:** Use built-in routing, middleware.js, edge API routes, or server actions.
 **Docs:** [Custom Server](https://nextjs.org/docs/pages/building-your-application/configuring/custom-server) | [Middleware](https://nextjs.org/docs/app/building-your-application/routing/middleware) | [Edge API Routes](https://nextjs.org/docs/app/building-your-application/routing/route-handlers#edge-route-handlers) | [Server Actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions)
 **Improvement:** [filled out post migration]
 
-### 6. API Routes in pages/api
 ### 6. API Routes in pages/api
 **Current Implementation:** API routes defined in pages/api directory.
 **Next.js 15 Implementation:** Use app/api, edge API routes, or server actions.
@@ -43,13 +37,11 @@
 **Improvement:** [filled out post migration]
 
 ### 7. Multiple Data Fetching Methods
-### 7. Multiple Data Fetching Methods
 **Current Implementation:** Uses getStaticProps, getServerSideProps, and getInitialProps in pages.
 **Next.js 15 Implementation:** Use RSCs and server actions for unified data fetching.
 **Docs:** [getStaticProps](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props) | [getServerSideProps](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-server-side-props) | [React Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components) | [Server Actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions)
 **Improvement:** [filled out post migration]
 
-### 8. Global CSS Import in Page
 ### 8. Global CSS Import in Page
 **Current Implementation:** Imports global CSS in pages/components.
 **Next.js 15 Implementation:** Import global CSS in layout.js or _app.js only.
@@ -57,13 +49,11 @@
 **Improvement:** [filled out post migration]
 
 ### 9. Old Link and Router APIs
-### 9. Old Link and Router APIs
 **Current Implementation:** Uses legacy next/link and next/router for navigation.
 **Next.js 15 Implementation:** Use new useRouter hook and file-based routing in app directory.
 **Docs:** [next/link](https://nextjs.org/docs/pages/building-your-application/routing/linking-and-navigating) | [next/router](https://nextjs.org/docs/pages/building-your-application/routing/router) | [App Navigation](https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating)
 **Improvement:** [filled out post migration]
 
-### 10. Class Component with Legacy Lifecycle
 ### 10. Class Component with Legacy Lifecycle
 **Current Implementation:** Uses React class components with lifecycle methods.
 **Next.js 15 Implementation:** Refactor to function components and hooks.
