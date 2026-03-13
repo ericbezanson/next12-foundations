@@ -5,15 +5,12 @@
 'use client'; // this directive is mandatory for interactivity in NextJS 15
 
 import React from 'react';
-import VideoPlayer from '../components/VideoPlayer';
-import styles from '../styles/Player.module.css';
+import VideoPlayer from '../../components/VideoPlayer';
+import styles from '../../../styles/Player.module.css';
 import dynamic from 'next/dynamic';
 
-// Dynamically import RelatedVideos with SSR off
-const RelatedVideos = dynamic(() => import('../components/RelatedVideos'), { ssr: false });
-
 // Modern apparoach 
-const Player = ({videoUrl, videoTitle, fact, relatedVideos, id}) => {
+const Player = ({videoUrl, videoTitle, fact, id}) => {
   const videoRef = React.useRef(null);
   const handleChapterClick = (chapterIdx) => {
     const video = videoRef.current;
@@ -63,8 +60,6 @@ const Player = ({videoUrl, videoTitle, fact, relatedVideos, id}) => {
           ))}
         </div>
       </div>
-
-      <RelatedVideos currentId={id} />
 
       <div style={{ marginTop: '2rem', textAlign: 'center' }}>
         <a href="/" style={{ color: '#fff', textDecoration: 'underline', fontWeight: 'bold', fontSize: '2rem' }}>

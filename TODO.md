@@ -1,17 +1,11 @@
 ## Migration Challenges 
 
-### 1. getInitialProps for Legacy Data Fetching
+### 1. Multiple Data Fetching Methods
 **Current Implementation:** Uses getInitialProps in pages or _app.js for data fetching on both server and client.
 **Next.js 15 Implementation:** Use getServerSideProps, getStaticProps, or React Server Components (RSC) for data fetching.
 **Docs:** [getInitialProps](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-initial-props) | [getServerSideProps](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-server-side-props) | [getStaticProps](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props) | [React Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components)
 **Improvement:** 
-Reduced Bundle Size: Class components require more code for the browser to parse. Functional components are smaller and "minifier-friendly."
-
-The "This" Problem: You no longer have to worry about this being undefined in your event handlers or binding methods in the constructor.
-
-React Compiler Ready: Next.js 15 introduces the React Compiler, which automatically optimizes functional components for performance. It struggles to optimize old Class components.
-
-Async/Await Support: In the App Router, your page could look like this:
+In next 15 we have unified colocated data fetching meaning all data fetching happens inside the react server components without the need for seperate functions like getStaticProps, getInitialProps etc.
 
 ### 2. Custom _document.js and Enhanced _app.js
 **Current Implementation:** _document.js for custom HTML structure; _app.js for global styles and logic.
@@ -25,49 +19,52 @@ by replacing _document.js with app/head.js and app/layout.js our base head tag a
 **Current Implementation:** Uses dynamic(() => import('...'), { ssr: false }) for client-only components.
 **Next.js 15 Implementation:** Use "use client" directive for Client Components; dynamic import for code splitting only.
 **Docs:** [Dynamic Imports](https://nextjs.org/docs/pages/building-your-application/configuring/dynamic-import) | [Client Components](https://nextjs.org/docs/app/building-your-application/rendering/client-components)
-**Improvement:** [filled out post migration]
+**Improvement:** 
+In next15 dynamic imports are no longer needed for SSR control, only for code splitting. all components by default are now RSC which allows us to keep our client side components (identified via tha 'use client' directive) much smaller. reducing bundle sizes.
 
 ### 4. Legacy next/image Usage
 **Current Implementation:** Uses old next/image with manual config.
 **Next.js 15 Implementation:** Use new Image component with improved defaults and config.
 **Docs:** [next/image](https://nextjs.org/docs/pages/building-your-application/configuring/images) | [Image Component (App)](https://nextjs.org/docs/app/building-your-application/configuring/images)
-**Improvement:** [filled out post migration]
+**Improvement:** 
+next15 Image works seemlessly between SSR and CSR, with some better QOL features like the sizes prop. NOTE: web based images must have their url in the image config to be allowed.
 
-### 5. Custom Express Server
+### 5. Custom Express Server / API Routes in pages/api
 **Current Implementation:** Uses custom Express server for routing/middleware.
 **Next.js 15 Implementation:** Use built-in routing, middleware.js, edge API routes, or server actions.
 **Docs:** [Custom Server](https://nextjs.org/docs/pages/building-your-application/configuring/custom-server) | [Middleware](https://nextjs.org/docs/app/building-your-application/routing/middleware) | [Edge API Routes](https://nextjs.org/docs/app/building-your-application/routing/route-handlers#edge-route-handlers) | [Server Actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions)
-**Improvement:** [filled out post migration]
+**Improvement:** 
+Next 15 no longer needs express to fill the gaps with added features like file-based routes, route-specific middleware with middleware.js, edge api routes for low latency api logic, sever actions to run serverside logic from client components and custom headers/redirects/rewrites. In this app its not really used but it can be seen in action at /api/bees
 
-### 6. API Routes in pages/api
-**Current Implementation:** API routes defined in pages/api directory.
-**Next.js 15 Implementation:** Use app/api, edge API routes, or server actions.
-**Docs:** [API Routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) | [App API Routes](https://nextjs.org/docs/app/building-your-application/routing/route-handlers) | [Edge API Routes](https://nextjs.org/docs/app/building-your-application/routing/route-handlers#edge-route-handlers)
-**Improvement:** [filled out post migration]
-
-### 7. Multiple Data Fetching Methods
-**Current Implementation:** Uses getStaticProps, getServerSideProps, and getInitialProps in pages.
-**Next.js 15 Implementation:** Use RSCs and server actions for unified data fetching.
-**Docs:** [getStaticProps](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props) | [getServerSideProps](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-server-side-props) | [React Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components) | [Server Actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions)
-**Improvement:** [filled out post migration]
-
-### 8. Global CSS Import in Page
+### 6. Global CSS Import in Page
 **Current Implementation:** Imports global CSS in pages/components.
 **Next.js 15 Implementation:** Import global CSS in layout.js or _app.js only.
 **Docs:** [Global CSS](https://nextjs.org/docs/pages/building-your-application/configuring/global-styles) | [App Global Styles](https://nextjs.org/docs/app/building-your-application/configuring/global-styles)
-**Improvement:** [filled out post migration]
+**Improvement:** 
+in next 15 we can use a custom layout.js file to import global styles and provide a shared layout with custom css modules colocated with the components or pages they style
 
-### 9. Old Link and Router APIs
+### 7. Old Link and Router APIs
 **Current Implementation:** Uses legacy next/link and next/router for navigation.
 **Next.js 15 Implementation:** Use new useRouter hook and file-based routing in app directory.
 **Docs:** [next/link](https://nextjs.org/docs/pages/building-your-application/routing/linking-and-navigating) | [next/router](https://nextjs.org/docs/pages/building-your-application/routing/router) | [App Navigation](https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating)
-**Improvement:** [filled out post migration]
+**Improvement:** 
+In next 15 we can use file-system based routing which is much easier as you no longer need manual route definitions. useRouter also provides imperative naviagation and router actions in client components.
 
-### 10. Class Component with Legacy Lifecycle
+### 8. Class Component with Legacy Lifecycle
 **Current Implementation:** Uses React class components with lifecycle methods.
 **Next.js 15 Implementation:** Refactor to function components and hooks.
 **Docs:** [Class Components](https://react.dev/reference/react/Component) | [Function Components & Hooks](https://react.dev/reference/react/hooks)
-**Improvement:** [filled out post migration]
+**Improvement:** 
+
+the switch to functional components and hooks over class components and lifecycle methods leads to cleaner more maintainable code. 
+
+Reduced Bundle Size: Class components require more code for the browser to parse. Functional components are smaller and "minifier-friendly."
+
+The "This" Problem: You no longer have to worry about this being undefined in your event handlers or binding methods in the constructor.
+
+React Compiler Ready: Next.js 15 introduces the React Compiler, which automatically optimizes functional components for performance. It struggles to optimize old Class components.
+
+Async/Await Support: In the App Router, your page could look like this:
 
 ---
 

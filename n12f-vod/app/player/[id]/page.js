@@ -1,28 +1,32 @@
 import Player from './PlayerClient'; // The functional component we just made
-import { videos } from '../../data/videos'; // Sample video data
 
 export default async function Page({ params }) {
     const { id } = await params;
     console.log('Received video ID:', id);
     const videoId = parseInt(id, 10) || 1;
 
-    const currentVideo = videos.find((v) => v.id === videoId) || videos[0];
-    const relatedVideos = videos.filter((v) => v.id !== videoId);
+    const res = await fetch(`https://api.themoviedb.org/3/movie/${videoId}?api_key=${process.env.TMDB_API_KEY}`, {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+        },
+    });
+
+    const movieDetails = await res.json();
+    console.log('Fetched movie details:', movieDetails);
 
     // 3. Pass the data as simple props to the 'Client' component
     return (
         <>
-            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                {/* Next.js 15 Optimization: You'd ideally use <Image /> here */}
-                <img src="/assets/logo.png" alt="Logo" style={{ height: '500px' }} />
+           <div style={{ width: '100%', height: 150, background: '#fb42b2', display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
+                <img src="/assets/logo.png" alt="Logo" style={{ height: 150 }} />
             </div>
             <Player
                 videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                videoTitle={currentVideo.title}
-                fact={currentVideo.fact}
-                relatedVideos={relatedVideos}
+                videoTitle={movieDetails.original_title || 'Unknown Title'}
+                fact={movieDetails.overview || 'No description available.'}
                 id={videoId}
             />
         </>
     );
-}
+}``

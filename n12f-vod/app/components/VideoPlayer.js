@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function VideoPlayer({ src, videoRef }) {
+const VideoPlayer = ({src, videoRef}) => {
   return (
     <video
       ref={videoRef}
@@ -14,4 +14,6 @@ export default function VideoPlayer({ src, videoRef }) {
       Your browser does not support the video tag.
     </video>
   );
-}
+} 
+
+export default VideoPlayer;
