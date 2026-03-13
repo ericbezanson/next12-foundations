@@ -4,13 +4,22 @@
 **Current Implementation:** Uses getInitialProps in pages or _app.js for data fetching on both server and client.
 **Next.js 15 Implementation:** Use getServerSideProps, getStaticProps, or React Server Components (RSC) for data fetching.
 **Docs:** [getInitialProps](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-initial-props) | [getServerSideProps](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-server-side-props) | [getStaticProps](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props) | [React Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components)
-**Improvement:** [filled out post migration]
+**Improvement:** 
+Reduced Bundle Size: Class components require more code for the browser to parse. Functional components are smaller and "minifier-friendly."
+
+The "This" Problem: You no longer have to worry about this being undefined in your event handlers or binding methods in the constructor.
+
+React Compiler Ready: Next.js 15 introduces the React Compiler, which automatically optimizes functional components for performance. It struggles to optimize old Class components.
+
+Async/Await Support: In the App Router, your page could look like this:
 
 ### 2. Custom _document.js and Enhanced _app.js
 **Current Implementation:** _document.js for custom HTML structure; _app.js for global styles and logic.
 **Next.js 15 Implementation:** Use app directory layouts, template.js, and new global style conventions.
 **Docs:** [_document.js](https://nextjs.org/docs/pages/building-your-application/rendering/custom-document) | [_app.js](https://nextjs.org/docs/pages/building-your-application/rendering/custom-app) | [Layouts & Templates](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts)
-**Improvement:** [filled out post migration]
+**Improvement:** 
+
+by replacing _document.js with app/head.js and app/layout.js our base head tag and body tags are now react components that can use react features like composition, context and props. Additionally we can have multiple layout.js files for different routes to add a more bespoke layout based on the route if required. 
 
 ### 3. Dynamic Import with SSR Off
 **Current Implementation:** Uses dynamic(() => import('...'), { ssr: false }) for client-only components.

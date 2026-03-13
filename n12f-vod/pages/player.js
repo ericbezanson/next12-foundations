@@ -1,6 +1,7 @@
 // [Migration Challenge 10 - Update class component with legacy lifecycle to function component with hooks]
 // [Migration Challenge 8 - Update global CSS import in page to global CSS import in layout.js/_app.js only]
 // [Migration Challenge 1 - Update getInitialProps to getServerSideProps/getStaticProps/React Server Components]
+
 import React from 'react';
 import VideoPlayer from '../components/VideoPlayer';
 import styles from '../styles/Player.module.css';
